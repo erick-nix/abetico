@@ -1,0 +1,19 @@
+.button-submit {
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.progress-bar2 {
+  min-height: 6px;
+}
+
+.progress-bar2 trough {
+  min-height: 3px;
+  border-radius: 1px;
+  background-color: transparent;
+}
+
+.progress-bar2 progress {
+  min-height: 3px;
+  border-radius: 1px;
+}

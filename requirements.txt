@@ -1,0 +1,7 @@
+pygobject3
+gst-python
+numpy
+matplotlib
+scikit-learn
+scipy
+pandas

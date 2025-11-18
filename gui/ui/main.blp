@@ -1,0 +1,343 @@
+using Gtk 4.0;
+using Adw 1;
+
+menu primary_menu {
+  section {
+    item {
+      label: "Sobre o Abético";
+      action: "app.show_about";
+    }
+  }
+}
+
+template $MainWindow: Adw.ApplicationWindow {
+  title: "Abético";
+  default-width: 700;
+  default-height: 600;
+
+  content: Adw.ToastOverlay toast_overlay {
+    child: Adw.ToolbarView {
+      [top]
+      Adw.HeaderBar {
+        [start]
+        Gtk.Button back_header_button {
+          icon-name: "go-previous-symbolic";
+          tooltip-text: "Voltar";
+          visible: false;
+          clicked => $on_back_to_home();
+        }
+
+        title-widget: Adw.WindowTitle {
+          title: "Abético";
+        };
+
+        [end]
+        Gtk.MenuButton {
+          icon-name: "open-menu-symbolic";
+          menu-model: primary_menu;
+          tooltip-text: "Menu Principal";
+        }
+      }
+
+      content: Gtk.Overlay {
+        [overlay]
+        Gtk.ProgressBar progress_bar {
+          visible: false;
+          valign: start;
+          halign: fill;
+          margin-start: 0;
+          margin-end: 0;
+          margin-top: 0;
+
+          css-classes: [
+            "progress-bar2",
+          ];
+        }
+
+        child: Gtk.Stack main_stack {
+          transition-type: slide_left_right;
+
+          Gtk.StackPage {
+            name: "home";
+
+            child: Gtk.Box {
+              orientation: vertical;
+              margin-top: 10;
+              margin-bottom: 30;
+              margin-start: 30;
+              margin-end: 30;
+              spacing: 20;
+              halign: center;
+              valign: center;
+
+              Gtk.Box {
+                orientation: vertical;
+                spacing: 20;
+                hexpand: true;
+                vexpand: true;
+
+                Gtk.Label {
+                  label: "Abético";
+                  halign: center;
+
+                  css-classes: [
+                    "title-1",
+                  ];
+                }
+
+                Gtk.Label {
+                  label: "Calcule sua probabilidade de ter diabetes";
+                  halign: center;
+                  wrap: true;
+                  justify: center;
+
+                  css-classes: [
+                    "body",
+                  ];
+                }
+
+                Gtk.Button convert_button {
+                  label: "Iniciar as perguntas";
+
+                  css-classes: [
+                    "suggested-action",
+                    "pill",
+                  ];
+
+                  clicked => $on_go_questions();
+                }
+              }
+            };
+          }
+
+          Gtk.StackPage {
+            name: "questions";
+
+            child: Gtk.Box {
+              orientation: vertical;
+              hexpand: true;
+              vexpand: true;
+              halign: center;
+              valign: center;
+              margin-top: 10;
+              margin-bottom: 30;
+              margin-start: 30;
+              margin-end: 30;
+              spacing: 24;
+
+              Gtk.Box {
+                orientation: horizontal;
+                spacing: 15;
+                hexpand: true;
+                homogeneous: true;
+
+                Gtk.Box {
+                  orientation: vertical;
+                  spacing: 10;
+                  hexpand: true;
+
+                  Gtk.Label {
+                    label: "Glucose (mg/dL):";
+                    halign: start;
+
+                    css-classes: [
+                      "heading",
+                    ];
+                  }
+
+                  Gtk.Label {
+                    label: "Quantidade de açúcar no sangue, medida em miligramas por decilitro.";
+                    halign: start;
+                    wrap: true;
+
+                    css-classes: [
+                      "dimmed",
+                    ];
+                  }
+
+                  Gtk.Entry glucose_entry {
+                    placeholder-text: "Ex: 120";
+                    hexpand: true;
+                  }
+                }
+
+                Gtk.Box {
+                  orientation: vertical;
+                  spacing: 10;
+                  hexpand: true;
+
+                  Gtk.Label {
+                    label: "IMC (kg/m²):";
+                    halign: start;
+
+                    css-classes: [
+                      "heading",
+                    ];
+                  }
+
+                  Gtk.Label {
+                    label: "Índice de Massa Corporal, uma medida que relaciona o peso e a altura.";
+                    halign: start;
+                    wrap: true;
+
+                    css-classes: [
+                      "dimmed",
+                    ];
+                  }
+
+                  Gtk.Entry bmi_entry {
+                    placeholder-text: "Ex: 25.5";
+                    hexpand: true;
+                  }
+                }
+              }
+
+              Gtk.Box {
+                orientation: horizontal;
+                spacing: 15;
+                hexpand: true;
+                homogeneous: true;
+
+                Gtk.Box {
+                  orientation: vertical;
+                  spacing: 10;
+                  hexpand: true;
+
+                  Gtk.Label {
+                    label: "Histórico Familiar de Diabetes:";
+                    halign: start;
+
+                    css-classes: [
+                      "heading",
+                    ];
+                  }
+
+                  Gtk.Label {
+                    label: "Pontuação que indica a influência genética no risco de desenvolver diabetes";
+                    halign: start;
+                    wrap: true;
+
+                    css-classes: [
+                      "dimmed",
+                    ];
+                  }
+
+                  Gtk.Entry family_history_entry {
+                    placeholder-text: "Ex: 0.5";
+                    hexpand: true;
+                  }
+                }
+
+                Gtk.Box {
+                  orientation: vertical;
+                  spacing: 10;
+                  hexpand: true;
+                  valign: center;
+
+                  Gtk.Label {
+                    label: "Idade:";
+                    halign: start;
+
+                    css-classes: [
+                      "heading",
+                    ];
+                  }
+
+                  Gtk.Label {
+                    label: "A idade do indivíduo em anos.";
+                    halign: start;
+                    wrap: true;
+
+                    css-classes: [
+                      "dimmed",
+                    ];
+                  }
+
+                  Gtk.Entry age_entry {
+                    placeholder-text: "Ex: 34";
+                    hexpand: true;
+                  }
+                }
+              }
+
+              Gtk.Button submit_button {
+                label: "Calcular Resultado";
+
+                css-classes: [
+                  "suggested-action",
+                  "button-submit",
+                ];
+
+                clicked => $on_submit_questions();
+              }
+
+              Gtk.Label error_label {
+                label: "Preencha todos os campos corretamente.";
+                visible: false;
+                halign: start;
+                wrap: true;
+
+                css-classes: [
+                  "error",
+                ];
+              }
+            };
+          }
+
+          Gtk.StackPage {
+            name: "result";
+
+            child: Gtk.Box {
+              orientation: vertical;
+              margin-top: 10;
+              margin-bottom: 30;
+              margin-start: 30;
+              margin-end: 30;
+              spacing: 20;
+              halign: center;
+              valign: center;
+
+              Gtk.Box {
+                orientation: vertical;
+                spacing: 20;
+                hexpand: true;
+                vexpand: true;
+
+                Gtk.Label {
+                  label: "Seu resultado:";
+                  halign: center;
+
+                  css-classes: [
+                    "title-1",
+                  ];
+                }
+
+                Gtk.Label result_percentage_label {
+                  label: "";
+                  halign: center;
+                  wrap: true;
+                  justify: center;
+
+                  css-classes: [
+                    "title-3",
+                  ];
+                }
+
+                Gtk.Label result_description_label {
+                  label: "";
+                  halign: center;
+                  wrap: true;
+                  justify: center;
+
+                  css-classes: [
+                    "dimmed",
+                  ];
+                }
+              }
+            };
+          }
+        };
+      };
+    };
+  };
+}
