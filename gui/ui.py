@@ -49,7 +49,7 @@ class MainWindow(Adw.ApplicationWindow):
         about_action.connect("activate", self.on_show_about)
         self.get_application().add_action(about_action)
 
-    def on_show_about(self):
+    def on_show_about(self, _button, _param):
         """Show About window"""
         about = Adw.AboutDialog.new()
 
