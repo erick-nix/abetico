@@ -210,7 +210,7 @@ pill</property>
                                     </child>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="label">Pontuação que indica a influência genética no risco de desenvolver diabetes</property>
+                                        <property name="label">Quantas pessoas na sua família têm diabetes?</property>
                                         <property name="halign">1</property>
                                         <property name="wrap">true</property>
                                         <property name="css-classes">dimmed</property>
@@ -218,7 +218,7 @@ pill</property>
                                     </child>
                                     <child>
                                       <object class="GtkEntry" id="family_history_entry">
-                                        <property name="placeholder-text">Ex: 0.5</property>
+                                        <property name="placeholder-text">Ex: 2</property>
                                         <property name="hexpand">true</property>
                                       </object>
                                     </child>
@@ -239,7 +239,7 @@ pill</property>
                                     </child>
                                     <child>
                                       <object class="GtkLabel">
-                                        <property name="label">A idade do indivíduo em anos.</property>
+                                        <property name="label">A sua idade em anos</property>
                                         <property name="halign">1</property>
                                         <property name="wrap">true</property>
                                         <property name="css-classes">dimmed</property>

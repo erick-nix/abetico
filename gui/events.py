@@ -31,9 +31,22 @@ class EventHandlers:
         if (not self.window.age_entry.get_text().isdigit() or
             not self.window.bmi_entry.get_text().replace('.', '', 1).isdigit() or
             not self.window.glucose_entry.get_text().isdigit() or
-            not self.window.family_history_entry.get_text().strip()):
+            not self.window.family_history_entry.get_text().isdigit()):
             return False
         return True
+
+    def convert_family_history_to_score(self, num_people):
+        """Converts number of family members with diabetes to a score"""
+        # Convert number of people to DiabetesPedigreeFunction score
+        # 0 people = 0.2 (low genetic risk)
+        # 1-2 people = 0.5 (moderate genetic risk)
+        # 3+ people = 0.8 (high genetic risk)
+        if num_people == 0:
+            return 0.2
+        elif num_people <= 2:
+            return 0.5
+        else:
+            return 0.8
 
     def simulate_progress(self):
         """Simulates calculation progress with smooth curve (ease-in-out)"""
@@ -108,8 +121,11 @@ class EventHandlers:
             # Collect field values
             glucose = float(self.window.glucose_entry.get_text())
             bmi = float(self.window.bmi_entry.get_text())
-            family_history = float(self.window.family_history_entry.get_text())
+            num_family_members = int(self.window.family_history_entry.get_text())
             age = int(self.window.age_entry.get_text())
+
+            # Convert number of family members to DiabetesPedigreeFunction score
+            family_history = self.convert_family_history_to_score(num_family_members)
 
             # Make prediction
             probability = self.predictor.predict(glucose, bmi, family_history, age)
