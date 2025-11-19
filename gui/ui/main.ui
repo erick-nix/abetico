@@ -18,6 +18,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
     <property name="title">Abético</property>
     <property name="default-width">700</property>
     <property name="default-height">600</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 600sp</condition>
+        <setter object="questions_row1" property="orientation">1</setter>
+        <setter object="questions_row2" property="orientation">1</setter>
+      </object>
+    </child>
     <property name="content">
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
@@ -115,163 +122,179 @@ pill</property>
                       <object class="GtkStackPage">
                         <property name="name">questions</property>
                         <property name="child">
-                          <object class="GtkBox">
-                            <property name="orientation">1</property>
-                            <property name="hexpand">true</property>
-                            <property name="vexpand">true</property>
-                            <property name="halign">3</property>
-                            <property name="valign">3</property>
-                            <property name="margin-top">10</property>
-                            <property name="margin-bottom">30</property>
-                            <property name="margin-start">30</property>
-                            <property name="margin-end">30</property>
-                            <property name="spacing">24</property>
-                            <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">2</property>
+                            <property name="vscrollbar-policy">1</property>
+                            <property name="propagate-natural-height">true</property>
+                            <property name="child">
                               <object class="GtkBox">
-                                <property name="orientation">0</property>
-                                <property name="spacing">15</property>
-                                <property name="hexpand">true</property>
-                                <property name="homogeneous">true</property>
+                                <property name="orientation">1</property>
+                                <property name="vexpand">true</property>
+                                <property name="valign">3</property>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">1</property>
-                                    <property name="spacing">10</property>
-                                    <property name="hexpand">true</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Glucose (mg/dL):</property>
-                                        <property name="halign">1</property>
-                                        <property name="css-classes">heading</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Quantidade de açúcar no sangue, medida em miligramas por decilitro.</property>
-                                        <property name="halign">1</property>
-                                        <property name="wrap">true</property>
-                                        <property name="css-classes">dimmed</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="glucose_entry">
-                                        <property name="placeholder-text">Ex: 120</property>
+                                  <object class="AdwClamp">
+                                    <property name="maximum-size">800</property>
+                                    <property name="child">
+                                      <object class="GtkBox">
+                                        <property name="orientation">1</property>
                                         <property name="hexpand">true</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">1</property>
-                                    <property name="spacing">10</property>
-                                    <property name="hexpand">true</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">IMC (kg/m²):</property>
-                                        <property name="halign">1</property>
-                                        <property name="css-classes">heading</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Índice de Massa Corporal, uma medida que relaciona o peso e a altura.</property>
-                                        <property name="halign">1</property>
-                                        <property name="wrap">true</property>
-                                        <property name="css-classes">dimmed</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="bmi_entry">
-                                        <property name="placeholder-text">Ex: 25.5</property>
-                                        <property name="hexpand">true</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="orientation">0</property>
-                                <property name="spacing">15</property>
-                                <property name="hexpand">true</property>
-                                <property name="homogeneous">true</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">1</property>
-                                    <property name="spacing">10</property>
-                                    <property name="hexpand">true</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Histórico Familiar de Diabetes:</property>
-                                        <property name="halign">1</property>
-                                        <property name="css-classes">heading</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Quantas pessoas na sua família têm diabetes?</property>
-                                        <property name="halign">1</property>
-                                        <property name="wrap">true</property>
-                                        <property name="css-classes">dimmed</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="family_history_entry">
-                                        <property name="placeholder-text">Ex: 2</property>
-                                        <property name="hexpand">true</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">1</property>
-                                    <property name="spacing">10</property>
-                                    <property name="hexpand">true</property>
-                                    <property name="valign">3</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">Idade:</property>
-                                        <property name="halign">1</property>
-                                        <property name="css-classes">heading</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label">A sua idade em anos</property>
-                                        <property name="halign">1</property>
-                                        <property name="wrap">true</property>
-                                        <property name="css-classes">dimmed</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="age_entry">
-                                        <property name="placeholder-text">Ex: 34</property>
-                                        <property name="hexpand">true</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="submit_button">
-                                <property name="label">Calcular Resultado</property>
-                                <property name="css-classes">suggested-action
+                                        <property name="halign">0</property>
+                                        <property name="margin-top">30</property>
+                                        <property name="margin-bottom">30</property>
+                                        <property name="margin-start">30</property>
+                                        <property name="margin-end">30</property>
+                                        <property name="spacing">24</property>
+                                        <child>
+                                          <object class="GtkBox" id="questions_row1">
+                                            <property name="orientation">0</property>
+                                            <property name="spacing">24</property>
+                                            <property name="hexpand">true</property>
+                                            <property name="homogeneous">true</property>
+                                            <child>
+                                              <object class="GtkBox">
+                                                <property name="orientation">1</property>
+                                                <property name="spacing">10</property>
+                                                <property name="hexpand">true</property>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Glucose (mg/dL):</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="css-classes">heading</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Quantidade de açúcar no sangue, medida em miligramas por decilitro.</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="wrap">true</property>
+                                                    <property name="css-classes">dimmed</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkEntry" id="glucose_entry">
+                                                    <property name="placeholder-text">Ex: 120</property>
+                                                    <property name="hexpand">true</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkBox">
+                                                <property name="orientation">1</property>
+                                                <property name="spacing">10</property>
+                                                <property name="hexpand">true</property>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">IMC (kg/m²):</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="css-classes">heading</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Índice de Massa Corporal, uma medida que relaciona o peso e a altura.</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="wrap">true</property>
+                                                    <property name="css-classes">dimmed</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkEntry" id="bmi_entry">
+                                                    <property name="placeholder-text">Ex: 25.5</property>
+                                                    <property name="hexpand">true</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkBox" id="questions_row2">
+                                            <property name="orientation">0</property>
+                                            <property name="spacing">24</property>
+                                            <property name="hexpand">true</property>
+                                            <property name="homogeneous">true</property>
+                                            <child>
+                                              <object class="GtkBox">
+                                                <property name="orientation">1</property>
+                                                <property name="spacing">10</property>
+                                                <property name="hexpand">true</property>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Histórico Familiar de Diabetes:</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="css-classes">heading</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Quantas pessoas na sua família têm diabetes?</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="wrap">true</property>
+                                                    <property name="css-classes">dimmed</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkEntry" id="family_history_entry">
+                                                    <property name="placeholder-text">Ex: 2</property>
+                                                    <property name="hexpand">true</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="GtkBox">
+                                                <property name="orientation">1</property>
+                                                <property name="spacing">10</property>
+                                                <property name="hexpand">true</property>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">Idade:</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="css-classes">heading</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel">
+                                                    <property name="label">A sua idade em anos.</property>
+                                                    <property name="halign">1</property>
+                                                    <property name="wrap">true</property>
+                                                    <property name="css-classes">dimmed</property>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkEntry" id="age_entry">
+                                                    <property name="placeholder-text">Ex: 34</property>
+                                                    <property name="hexpand">true</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="submit_button">
+                                            <property name="label">Calcular Resultado</property>
+                                            <property name="css-classes">suggested-action
 button-submit</property>
-                                <signal name="clicked" handler="on_submit_questions"/>
+                                            <signal name="clicked" handler="on_submit_questions"/>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="error_label">
+                                            <property name="label">Preencha todos os campos corretamente.</property>
+                                            <property name="visible">false</property>
+                                            <property name="halign">1</property>
+                                            <property name="wrap">true</property>
+                                            <property name="css-classes">error</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
                               </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="error_label">
-                                <property name="label">Preencha todos os campos corretamente.</property>
-                                <property name="visible">false</property>
-                                <property name="halign">1</property>
-                                <property name="wrap">true</property>
-                                <property name="css-classes">error</property>
-                              </object>
-                            </child>
+                            </property>
                           </object>
                         </property>
                       </object>

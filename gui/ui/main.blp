@@ -15,6 +15,15 @@ template $MainWindow: Adw.ApplicationWindow {
   default-width: 700;
   default-height: 600;
 
+  Adw.Breakpoint {
+    condition ("max-width: 600sp")
+
+    setters {
+      questions_row1.orientation: vertical;
+      questions_row2.orientation: vertical;
+    }
+  }
+
   content: Adw.ToastOverlay toast_overlay {
     child: Adw.ToolbarView {
       [top]
@@ -113,174 +122,187 @@ template $MainWindow: Adw.ApplicationWindow {
           Gtk.StackPage {
             name: "questions";
 
-            child: Gtk.Box {
-              orientation: vertical;
-              hexpand: true;
-              vexpand: true;
-              halign: center;
-              valign: center;
-              margin-top: 10;
-              margin-bottom: 30;
-              margin-start: 30;
-              margin-end: 30;
-              spacing: 24;
+            child: Gtk.ScrolledWindow {
+              hscrollbar-policy: never;
+              vscrollbar-policy: automatic;
+              propagate-natural-height: true;
 
-              Gtk.Box {
-                orientation: horizontal;
-                spacing: 15;
-                hexpand: true;
-                homogeneous: true;
+              child: Gtk.Box {
+                orientation: vertical;
+                vexpand: true;
+                valign: center;
 
-                Gtk.Box {
-                  orientation: vertical;
-                  spacing: 10;
-                  hexpand: true;
+                Adw.Clamp {
+                  maximum-size: 800;
 
-                  Gtk.Label {
-                    label: "Glucose (mg/dL):";
-                    halign: start;
-
-                    css-classes: [
-                      "heading",
-                    ];
-                  }
-
-                  Gtk.Label {
-                    label: "Quantidade de açúcar no sangue, medida em miligramas por decilitro.";
-                    halign: start;
-                    wrap: true;
-
-                    css-classes: [
-                      "dimmed",
-                    ];
-                  }
-
-                  Gtk.Entry glucose_entry {
-                    placeholder-text: "Ex: 120";
+                  child: Gtk.Box {
+                    orientation: vertical;
                     hexpand: true;
-                  }
+                    halign: fill;
+                    margin-top: 30;
+                    margin-bottom: 30;
+                    margin-start: 30;
+                    margin-end: 30;
+                    spacing: 24;
+
+                    Gtk.Box questions_row1 {
+                      orientation: horizontal;
+                      spacing: 24;
+                      hexpand: true;
+                      homogeneous: true;
+
+                      Gtk.Box {
+                        orientation: vertical;
+                        spacing: 10;
+                        hexpand: true;
+
+                        Gtk.Label {
+                          label: "Glucose (mg/dL):";
+                          halign: start;
+
+                          css-classes: [
+                            "heading",
+                          ];
+                        }
+
+                        Gtk.Label {
+                          label: "Quantidade de açúcar no sangue, medida em miligramas por decilitro.";
+                          halign: start;
+                          wrap: true;
+
+                          css-classes: [
+                            "dimmed",
+                          ];
+                        }
+
+                        Gtk.Entry glucose_entry {
+                          placeholder-text: "Ex: 120";
+                          hexpand: true;
+                        }
+                      }
+
+                      Gtk.Box {
+                        orientation: vertical;
+                        spacing: 10;
+                        hexpand: true;
+
+                        Gtk.Label {
+                          label: "IMC (kg/m²):";
+                          halign: start;
+
+                          css-classes: [
+                            "heading",
+                          ];
+                        }
+
+                        Gtk.Label {
+                          label: "Índice de Massa Corporal, uma medida que relaciona o peso e a altura.";
+                          halign: start;
+                          wrap: true;
+
+                          css-classes: [
+                            "dimmed",
+                          ];
+                        }
+
+                        Gtk.Entry bmi_entry {
+                          placeholder-text: "Ex: 25.5";
+                          hexpand: true;
+                        }
+                      }
+                    }
+
+                    Gtk.Box questions_row2 {
+                      orientation: horizontal;
+                      spacing: 24;
+                      hexpand: true;
+                      homogeneous: true;
+
+                      Gtk.Box {
+                        orientation: vertical;
+                        spacing: 10;
+                        hexpand: true;
+
+                        Gtk.Label {
+                          label: "Histórico Familiar de Diabetes:";
+                          halign: start;
+
+                          css-classes: [
+                            "heading",
+                          ];
+                        }
+
+                        Gtk.Label {
+                          label: "Quantas pessoas na sua família têm diabetes?";
+                          halign: start;
+                          wrap: true;
+
+                          css-classes: [
+                            "dimmed",
+                          ];
+                        }
+
+                        Gtk.Entry family_history_entry {
+                          placeholder-text: "Ex: 2";
+                          hexpand: true;
+                        }
+                      }
+
+                      Gtk.Box {
+                        orientation: vertical;
+                        spacing: 10;
+                        hexpand: true;
+
+                        Gtk.Label {
+                          label: "Idade:";
+                          halign: start;
+
+                          css-classes: [
+                            "heading",
+                          ];
+                        }
+
+                        Gtk.Label {
+                          label: "A sua idade em anos.";
+                          halign: start;
+                          wrap: true;
+
+                          css-classes: [
+                            "dimmed",
+                          ];
+                        }
+
+                        Gtk.Entry age_entry {
+                          placeholder-text: "Ex: 34";
+                          hexpand: true;
+                        }
+                      }
+                    }
+
+                    Gtk.Button submit_button {
+                      label: "Calcular Resultado";
+
+                      css-classes: [
+                        "suggested-action",
+                        "button-submit",
+                      ];
+
+                      clicked => $on_submit_questions();
+                    }
+
+                    Gtk.Label error_label {
+                      label: "Preencha todos os campos corretamente.";
+                      visible: false;
+                      halign: start;
+                      wrap: true;
+
+                      css-classes: [
+                        "error",
+                      ];
+                    }
+                  };
                 }
-
-                Gtk.Box {
-                  orientation: vertical;
-                  spacing: 10;
-                  hexpand: true;
-
-                  Gtk.Label {
-                    label: "IMC (kg/m²):";
-                    halign: start;
-
-                    css-classes: [
-                      "heading",
-                    ];
-                  }
-
-                  Gtk.Label {
-                    label: "Índice de Massa Corporal, uma medida que relaciona o peso e a altura.";
-                    halign: start;
-                    wrap: true;
-
-                    css-classes: [
-                      "dimmed",
-                    ];
-                  }
-
-                  Gtk.Entry bmi_entry {
-                    placeholder-text: "Ex: 25.5";
-                    hexpand: true;
-                  }
-                }
-              }
-
-              Gtk.Box {
-                orientation: horizontal;
-                spacing: 15;
-                hexpand: true;
-                homogeneous: true;
-
-                Gtk.Box {
-                  orientation: vertical;
-                  spacing: 10;
-                  hexpand: true;
-
-                  Gtk.Label {
-                    label: "Histórico Familiar de Diabetes:";
-                    halign: start;
-
-                    css-classes: [
-                      "heading",
-                    ];
-                  }
-
-                  Gtk.Label {
-                    label: "Quantas pessoas na sua família têm diabetes?";
-                    halign: start;
-                    wrap: true;
-
-                    css-classes: [
-                      "dimmed",
-                    ];
-                  }
-
-                  Gtk.Entry family_history_entry {
-                    placeholder-text: "Ex: 2";
-                    hexpand: true;
-                  }
-                }
-
-                Gtk.Box {
-                  orientation: vertical;
-                  spacing: 10;
-                  hexpand: true;
-                  valign: center;
-
-                  Gtk.Label {
-                    label: "Idade:";
-                    halign: start;
-
-                    css-classes: [
-                      "heading",
-                    ];
-                  }
-
-                  Gtk.Label {
-                    label: "A sua idade em anos";
-                    halign: start;
-                    wrap: true;
-
-                    css-classes: [
-                      "dimmed",
-                    ];
-                  }
-
-                  Gtk.Entry age_entry {
-                    placeholder-text: "Ex: 34";
-                    hexpand: true;
-                  }
-                }
-              }
-
-              Gtk.Button submit_button {
-                label: "Calcular Resultado";
-
-                css-classes: [
-                  "suggested-action",
-                  "button-submit",
-                ];
-
-                clicked => $on_submit_questions();
-              }
-
-              Gtk.Label error_label {
-                label: "Preencha todos os campos corretamente.";
-                visible: false;
-                halign: start;
-                wrap: true;
-
-                css-classes: [
-                  "error",
-                ];
-              }
+              };
             };
           }
 
