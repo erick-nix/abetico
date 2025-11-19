@@ -6,8 +6,6 @@ Projeto de classificação de diabetes utilizando o **Pima Indians Diabetes Data
 
 *Interface gráfica do Abético para predição de diabetes*
 
----
-
 ## Sumário
 
 - [Sobre o Projeto](#sobre-o-projeto)
@@ -22,8 +20,7 @@ Projeto de classificação de diabetes utilizando o **Pima Indians Diabetes Data
 - [Resultados](#resultados)
 - [Referências](#referências)
 - [Autores](#autores)
-
----
+- [Licença](#licença)
 
 ## Sobre o Projeto
 
@@ -35,8 +32,6 @@ Este projeto implementa um sistema de predição de diabetes utilizando algoritm
 - Criar um modelo otimizado e eficiente
 - Disponibilizar uma interface gráfica amigável para uso prático
 
----
-
 ## Como Executar
 
 ### Executando pelos Binários (Recomendado)
@@ -46,24 +41,14 @@ A forma mais simples de executar o Abético é usando os binários pré-compilad
 #### Windows
 
 1. Acesse a página de [Releases](https://github.com/erick-nix/abetico/releases)
-2. Baixe o arquivo `Abetico-windows.zip` da versão mais recente
-3. Extraia o arquivo ZIP
-4. Execute o arquivo `Abetico.exe`
+2. Baixe o arquivo `Abetico.exe` da versão mais recente
+3. Execute o arquivo `Abetico.exe`
 
 #### Linux
 
 1. Acesse a página de [Releases](https://github.com/erick-nix/abetico/releases)
-2. Baixe o arquivo `Abetico-linux.tar.gz` da versão mais recente
-3. Extraia o arquivo:
-   ```bash
-   tar -xzf Abetico-linux.tar.gz
-   cd Abetico
-   ```
-4. Execute o binário:
-   ```bash
-   ./Abetico
-   ```
----
+2. Baixe o arquivo `Abetico.appimage` da versão mais recente
+3. Execute o appimage `./Abetico.appimage`
 
 ### Executando Manualmente (Python)
 
@@ -109,8 +94,6 @@ python notebooks/train_model.py
 python notebooks/model_selection.py
 ```
 
----
-
 ## Dataset
 
 **[Pima Indians Diabetes Database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)**
@@ -132,8 +115,6 @@ O dataset contém informações médicas de pacientes indígenas Pima, uma popul
 **Target:** `Outcome` (0 = Não diabético, 1 = Diabético)
 
 **Tamanho:** 768 amostras
-
----
 
 ## Metodologia
 
@@ -181,8 +162,6 @@ Testamos o modelo usando apenas as **4 features mais importantes**:
 
 **Features Selecionadas:** `Glucose`, `BMI`, `DiabetesPedigreeFunction`, `Age`
 
----
-
 ### 2. Treinamento dos Modelos
 
 #### 2.1 Modelos Testados
@@ -213,8 +192,6 @@ ada_params = {
 
 Utilizamos **GridSearchCV** para encontrar a melhor combinação de parâmetros.
 
----
-
 ### 3. Validação
 
 #### 3.1 K-Fold Cross Validation
@@ -234,8 +211,6 @@ cross_val_score(model, X, y, cv=kfold, scoring='neg_mean_squared_error')
 - Previne overfitting
 - Fornece estimativa mais confiável da performance real
 - Maximiza o uso dos dados (importante para datasets pequenos)
-
----
 
 ## Resultados
 
@@ -284,14 +259,10 @@ Após treinamento com **GridSearchCV** e validação cruzada 5-fold, obtivemos o
 
 ![Resultados do modelo](results/visualizations/model_comparison.png)
 
----
-
 ## Referências
 
 - **Dataset:** [Pima Indians Diabetes Database - UCI Machine Learning Repository](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
 - **Scikit-learn Documentation:** https://scikit-learn.org/
-
----
 
 ## Autores
 
@@ -301,4 +272,5 @@ Após treinamento com **GridSearchCV** e validação cruzada 5-fold, obtivemos o
 - **Ketlhen Nunes de Carvalho**
 - **Letícia Ferreira Pinto**
 
----
+## Licença
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
